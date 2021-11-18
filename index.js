@@ -5,18 +5,14 @@ const bot = new aoi.Bot({
   prefix: "a!",
   intents: "all", 
 })
-bot.status({
-text: "$djseval[client.users.cache.size;yes] hello| $djseval[client.guilds.cache.size;yes] hi there)",
-type: "WATCHING",
-time: 12,
-status: "idle"
-})
-bot.status({
-text: "v5 testing",
-type: "PLAYING",
-time: 12,
-status: "idle"
-})
+
+
+const variables = require("./variables")
+
+bot.variables(variables)
+
+// :/
+
 bot.onJoin()
 bot.onMessage()
 bot.onInteractionCreate()
@@ -33,7 +29,7 @@ const express = require('express')
 const app = express();
 
 app.get("/", async(req,res) => {
-  res.send('lol no need node 16.6.0')
+  res.send('lol no need node 17.1.0')
 })
 
 app.listen(3000, async () => {
@@ -102,7 +98,17 @@ $onlyIf[$queueLength>1;Only have **$queueLength song**]
 $onlyIf[$queueLength!=0;**⛔ Nothing song was playing**]
 $onlyIf[$voiceID!=;**⛔ You need to join the voice channel first**]`
 })
- 
+bot.command({
+  name: "addemoji",
+  aliases: "ad",
+  code: `
+ Emoji $addEmoji[https://cdn.discordapp.com/emojis/$replaceText[$replaceText[$checkCondition[$checkContains[$message[1];<]$checkContains[$message[1];:]$checkContains[$message[1];>]==truetruetrue]$isNumber[$message[1]];truefalse;$replaceText[$advancedTextSplit[$message[1];:;3];>;]];falsetrue;$message[1]];$message[2];yes] added with the name -> **$message[2]**
+ $onlyIf[$charCount[$message[2]]>=2;⛔ **You must put a longer name over than \`2 chars\`**]
+ $onlyIf[$message[2]!=;**Usage**: \`addemoji <emoji | emojiID> <name>\`]
+$onlyPerms[8;manageemojis;**You dont have the permission to use this command**]
+$onlyBotPerms[8;manageemojis;**I dont have the permission to use this command**]
+$suppressErrors`
+})
  
 bot.command({
 name: "clearqueue",
