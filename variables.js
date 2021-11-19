@@ -1,6 +1,7 @@
 module.exports = {
-  Money: "0",
-  bank: "0",
+  Wallet: "100", 
+  XP: "100",
+  Bank: "0",
   prefix: ";",
   symbol: "$",
   suggestion: "none",
