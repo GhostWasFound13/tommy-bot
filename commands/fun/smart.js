@@ -1,4 +1,4 @@
- bot.command({
+module.exports = ({
 name:"smart",
 code:`$title[1;How Smart]
 $description[1;$username[$mentioned[1;yes]] is $random[1;100]% Smart]
